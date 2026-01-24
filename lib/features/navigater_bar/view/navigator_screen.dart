@@ -33,7 +33,7 @@ class _NavigatorScreenState extends State<NavigatorScreen> {
         currentIndex: currentIndex,
         selectedItemColor: Colors.black,
         unselectedItemColor: Colors.grey,
-        items: const [
+        items:[
           BottomNavigationBarItem(
             backgroundColor: Colors.white,
             icon: Icon(Icons.home), label: ''),

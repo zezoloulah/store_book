@@ -4,7 +4,7 @@ import 'package:dio/dio.dart';
 
 import 'package:store_book/core/errors/failure.dart';
 import 'package:store_book/core/service/api_service.dart';
-import 'package:store_book/features/cart/data/model/get_cart_model.dart';
+
 import 'package:store_book/features/check_out/data/model/check_out/check_out_model.dart';
 import 'package:store_book/features/check_out/data/model/governorate/governorate_response_model.dart';
 import 'package:store_book/features/check_out/data/repo/check_out_repo.dart';

@@ -1,11 +1,12 @@
 import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:store_book/core/const/app_color.dart';
 import 'package:store_book/core/utile/Custom_Text.dart';
+import 'package:store_book/core/utile/custom_alert_dilog_error.dart';
 import 'package:store_book/core/utile/custom_bottom.dart';
 import 'package:store_book/features/cart/view_model/cubit/get_cart_cubit.dart';
+import 'package:store_book/features/cart/view_model/remove_from_cart/cubit/remove_to_cart_cubit.dart';
 import 'package:store_book/features/cart/view_model/update_cart/cubit/up_date_cart_cubit.dart';
 import 'package:store_book/features/home/view_model/add_cart/cubit/add_to_cart_cubit.dart';
 
@@ -80,7 +81,40 @@ class _CustomCardItemState extends State<CustomCardItem> {
                           color: Colors.black,
                         ),
                       ),
-                      Icon(Icons.close_rounded),
+                      BlocConsumer<RemoveToCartCubit, RemoveToCartState>(
+                        listener: (context, state) {
+                          if (state is RemoveToCartFailure) {
+                            showDialog(
+                              context: context,
+                              builder: (context) => CustomAlertDialogError(
+                                errMassage: state.errMassage,
+                              ),
+                            );
+                            log(state.errMassage);
+                          }
+                          if (state is RemoveToCartSuccess) {
+                            var data = state.data.message;
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(
+                                content: Text('${data}'),
+                                backgroundColor: Colors.green,
+                                duration: Duration(seconds: 0),
+                              ),
+                            );
+                          }
+                        },
+                        builder: (context, state) {
+                          return GestureDetector(
+                            onTap: () {
+                              context.read<RemoveToCartCubit>().removeFromCart(
+                                widget.cartId!,
+                              );
+                              context.read<GetCartCubit>().getCarts();
+                            },
+                            child: Icon(Icons.close_rounded),
+                          );
+                        },
+                      ),
                     ],
                   ),
                 ),
@@ -93,13 +127,41 @@ class _CustomCardItemState extends State<CustomCardItem> {
                 widget.addBottom == true
                     ? Padding(
                         padding: const EdgeInsets.only(left: 31),
-                        child: CustomBottom(
-                          onTap: () {},
-                          height: 0.05,
-                          w: 0.20,
-                          title: "AddToCart",
-                          titleColor: AppColor.whiteColor,
-                          bottomColor: AppColor.firstColor,
+                        child: BlocConsumer<AddToCartCubit, AddToCartState>(
+                          listener: (context, state) {
+                            if (state is AddToCartFailure) {
+                              showDialog(
+                                context: context,
+                                builder: (context) => CustomAlertDialogError(
+                                  errMassage: state.errMassage,
+                                ),
+                              );
+                            }
+                            if (state is AddToCartSuccess) {
+                              var data = state.data.message;
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                SnackBar(
+                                  content: Text('${data}'),
+                                  backgroundColor: Colors.green,
+                                  duration: Duration(seconds: 0),
+                                ),
+                              );
+                            }
+                          },
+                          builder: (context, state) {
+                            return CustomBottom(
+                              onTap: () {
+                                context.read<AddToCartCubit>().addToCart(
+                                  widget.cartId!,
+                                );
+                              },
+                              height: 0.05,
+                              w: 0.20,
+                              title: "AddToCart",
+                              titleColor: AppColor.whiteColor,
+                              bottomColor: AppColor.firstColor,
+                            );
+                          },
                         ),
                       )
                     : Container(
@@ -140,9 +202,7 @@ class _CustomCardItemState extends State<CustomCardItem> {
                                   );
                                   // Refresh cart data after successful update and rebuild UI
                                   context.read<GetCartCubit>().getCarts();
-                                    setState(() {
-                                      
-                                    });
+                                  setState(() {});
                                 }
                               },
                               builder: (context, state) {
@@ -169,9 +229,9 @@ class _CustomCardItemState extends State<CustomCardItem> {
                                     if (widget.quantity! > 1) {
                                       setState(() {
                                         log(widget.quantity.toString());
-                                        context.read<AddToCartCubit>().addToCart(
-                                          widget.cartId!
-                                        );
+                                        context
+                                            .read<AddToCartCubit>()
+                                            .addToCart(widget.cartId!);
                                       });
                                     }
                                   },

@@ -50,62 +50,68 @@ class _CartScreenBodyState extends State<CartScreenBody> {
                 }
                 if (state is GetCartSuccess) {
                   var data = state.data.data.cartItems;
-                  return data.isEmpty? Center(child: Lottie.asset('assets/animation/Empty box.json')) :Column(
-                    children: [
-                      SizedBox(
-                        height: h * 0.7,
-                        child: ListView.builder(
-                          itemCount: data.length,
-                          itemBuilder: (context, count) {
-                            return Padding(
-                              padding: const EdgeInsets.only(bottom: 10),
-                              child: CustomCardItem(
-                                name: data[count].productName,
-                                prise: data[count].total.toString(),
-                                image: data[count].productImage,
-                                addBottom: false,
-                                itemCount: data[count].quantity,
-                                cartId: data[count].itemId,
-                                quantity: data[count].quantity,
-                              ),
-                            );
-                          },
-                        ),
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          CustomText(
-                            title: "total:",
-                            hight: 0.03,
-                            color: AppColor.darkerColor,
+                  return data.isEmpty
+                      ? Center(
+                          child: Lottie.asset(
+                            'assets/animation/Empty box.json',
                           ),
-                          CustomText(
-                            title: "₹${state.data.data.total}",
-                            hight: 0.03,
-                            color: Colors.black,
-                          ),
-                        ],
-                      ),
-                      CustomBottom(
-                        onTap: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => CheckOutScreen(
-                                total: state.data.data.total,
+                        )
+                      : Column(
+                          children: [
+                            SizedBox(
+                              height: h * 0.7,
+                              child: ListView.builder(
+                                itemCount: data.length,
+                                itemBuilder: (context, count) {
+                                  return Padding(
+                                    padding: const EdgeInsets.only(bottom: 10),
+                                    child: CustomCardItem(
+                                      name: data[count].productName,
+                                      prise: data[count].total.toString(),
+                                      image: data[count].productImage,
+                                      addBottom: false,
+                                      itemCount: data[count].quantity,
+                                      cartId: data[count].itemId,
+                                      quantity: data[count].quantity,
+                                    ),
+                                  );
+                                },
                               ),
                             ),
-                          );
-                        },
-                        title: "Checkout",
-                        titleColor: AppColor.whiteColor,
-                        bottomColor: AppColor.firstColor,
-                      ),
-                    ],
-                  );
-                }
-                return SizedBox(
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                CustomText(
+                                  title: "total:",
+                                  hight: 0.03,
+                                  color: AppColor.darkerColor,
+                                ),
+                                CustomText(
+                                  title: "₹${state.data.data.total}",
+                                  hight: 0.03,
+                                  color: Colors.black,
+                                ),
+                              ],
+                            ),
+                            CustomBottom(
+                              onTap: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => CheckOutScreen(
+                                      total: state.data.data.total,
+                                    ),
+                                  ),
+                                );
+                              },
+                              title: "Checkout",
+                              titleColor: AppColor.whiteColor,
+                              bottomColor: AppColor.firstColor,
+                            ),
+                          ],
+                        );
+                }if(state is GetCartLoading){
+                  return SizedBox(
                   height: h * 0.85,
                   child: ListView.builder(
                     itemBuilder: (context, count) {
@@ -119,6 +125,12 @@ class _CartScreenBodyState extends State<CartScreenBody> {
                     },
                   ),
                 );
+                }
+                return  Center(
+                          child: Lottie.asset(
+                            'assets/animation/Empty box.json',
+                          ),
+                        );
               },
             ),
           ],

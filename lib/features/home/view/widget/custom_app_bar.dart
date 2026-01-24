@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:store_book/core/utile/Custom_Text.dart';
+import 'package:store_book/features/searsh/view/search_screen.dart';
 import 'package:svg_flutter/svg.dart';
 
 class CustomAppBarHome extends StatelessWidget {
-  const CustomAppBarHome({super.key,});
-  
+  const CustomAppBarHome({super.key});
+
   @override
   Widget build(BuildContext context) {
     final h = MediaQuery.of(context).size.height;
@@ -34,7 +35,12 @@ class CustomAppBarHome extends StatelessWidget {
                 ),
                 IconButton(
                   icon: const Icon(Icons.search, color: Colors.black),
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => SearchScreen()),
+                    );
+                  },
                 ),
               ],
             ),

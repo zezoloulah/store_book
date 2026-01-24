@@ -1,4 +1,4 @@
-import 'package:store_book/features/cart/data/model/get_cart_model.dart';
+
 
 class WishListModel {
   final WishlistPagination data;

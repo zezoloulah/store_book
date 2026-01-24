@@ -21,4 +21,11 @@ class GetCartCubit extends Cubit<GetCartState> {
       },
     );
   }
+  int get cartCount {
+    if (state is GetCartSuccess) {
+      CartModel cart = (state as GetCartSuccess).data;
+      return cart.data.cartItems.length;
+    }
+    return 0;
+  }
 }

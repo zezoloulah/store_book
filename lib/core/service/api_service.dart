@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:dio/dio.dart';
 import 'package:store_book/core/service/local_data/local_service_sheard.dart';
 
@@ -55,7 +57,7 @@ class ApiService {
     String? newPassword,
     String? newPasswordConfirmation,
     int? id,
-    int? cartId,
+    int? cartItemid,
     int? quantity,
   }) async {
     var res = await _dio.post(
@@ -76,10 +78,18 @@ class ApiService {
         "new_password": newPassword,
         "new_password_confirmation": newPasswordConfirmation,
         "product_id": id,
-        "cart_item_id": 4707,
-        "quantity": 2,
+        "cart_item_id": cartItemid,
+        "quantity": quantity,
       },
     );
+    return res.data;
+  }
+
+  Future<Map<String, dynamic>> getSearchData({required String search}) async {
+    var res = await _dio.get(
+      "https://www.googleapis.com/books/v1/volumes?q=$search",
+    );
+    
     return res.data;
   }
 }

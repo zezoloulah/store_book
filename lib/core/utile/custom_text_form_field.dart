@@ -3,19 +3,21 @@ import 'package:store_book/core/const/app_color.dart';
 import 'package:store_book/core/utile/Custom_Text.dart';
 
 class CustomTextFormField extends StatefulWidget {
-  const CustomTextFormField({
+  const CustomTextFormField( {
     this.addIcon = false,
     this.obscure = false,
     super.key,
     required this.controller,
     this.validator,
     required this.title,
+    this.onChange,
   });
   final TextEditingController controller;
   final String? Function(String?)? validator;
   final String title;
   final bool obscure;
   final bool addIcon;
+  final void Function(String)? onChange;
 
   @override
   State<CustomTextFormField> createState() => _CustomTextFormFieldState();
@@ -33,6 +35,7 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      onChanged: widget.onChange,
       obscureText: isObscure1,
       validator: widget.validator,
       controller: widget.controller,

@@ -25,7 +25,7 @@ class LoginRepoImplementation extends LoginRepo {
         password: password,
       );
       var data = LoginModel.fromJson(logIn);
-      await LocalService.saveToken(data.data!.token!);
+      await LocalService.saveToken(data.data!.token!,email);
       return right(data);
     } catch (e) {
       if (e is DioException) {

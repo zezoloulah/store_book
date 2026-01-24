@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:store_book/core/const/app_color.dart';
-import 'package:store_book/core/service/local_data/local_service_sheard.dart';
 import 'package:store_book/core/utile/Custom_Text.dart';
 import 'package:store_book/core/utile/custom_alert_dilog_error.dart';
 import 'package:store_book/core/utile/custom_back_bottom.dart';
@@ -124,7 +123,7 @@ class _LoginScreenBodyState extends State<LoginScreenBody> {
                             ),
                           );
                         },
-                        content: Text('${d.message}**${LocalService.token}'),
+                        content: Text('${d.message}'),
                         backgroundColor: Colors.green,
                         duration: Duration(seconds: 1),
                       ),

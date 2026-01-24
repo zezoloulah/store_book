@@ -6,12 +6,14 @@ class LocalService {
     _preferences = await SharedPreferences.getInstance();
   }
 
-  static Future<void> saveToken(String token) async {
+  static Future<void> saveToken(String token ,String email) async {
     await _preferences.setString('token', token);
+    await _preferences.setString('email', email);
   }
 
   static String? get token => _preferences.getString('token');
   
+  static String? get email => _preferences.getString('email');
   static Future<void> clear() async {
     await _preferences.clear();
   }

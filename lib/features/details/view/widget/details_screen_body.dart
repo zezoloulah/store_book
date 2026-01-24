@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:store_book/core/const/app_color.dart';
+import 'package:store_book/core/service/local_data/save_hive.dart';
 import 'package:store_book/core/utile/Custom_Text.dart';
 import 'package:store_book/core/utile/custom_back_bottom.dart';
 import 'package:store_book/core/utile/custom_bottom.dart';
+import 'package:store_book/core/utile/storage_local_data_hive.dart';
 import 'package:store_book/features/details/view_model/deitails/cubit/details_cubit.dart';
 import 'package:store_book/features/details/view_model/add_to_wish_list/cubit/add_to_wish_list_cubit.dart';
 import 'package:store_book/features/wish_list/view_model/cubit/get_wish_list_cubit.dart';
@@ -123,6 +125,13 @@ class _DetailsScreenBodyState extends State<DetailsScreenBody> {
                                 });
                                 context.read<AddToWishListCubit>().add(
                                   data!.id!,
+                                );
+                                SaveHive().addBook(
+                                  Book(
+                                    name: data.name!,
+                                    image: data.image!,
+                                    price: data.price!,
+                                  ),
                                 );
                               },
                               child: _isAdding

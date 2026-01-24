@@ -12,7 +12,6 @@ import 'package:store_book/features/check_out/view_model/check_out/cubit/check_o
 import 'package:store_book/features/check_out/view_model/get_governorate/cubit/get_governorate_cubit.dart';
 import 'package:store_book/features/check_out/view_model/plase_order/cubit/place_order_cubit.dart';
 import 'package:store_book/features/congrats/view/congrats_screen.dart';
-import 'package:store_book/features/home/view/home_screen.dart';
 import 'package:store_book/features/navigater_bar/view/navigator_screen.dart';
 
 class CheckOutBody extends StatefulWidget {
